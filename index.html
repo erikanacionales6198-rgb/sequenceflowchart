@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erika's Sequence Flowchart Activity</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:linear-gradient(180deg,#F9F6FF,#FFF9FD);
+    color:#5E5674;
+}
+
+/* dreamy background */
+body::before, body::after{
+    content:"";
+    position:fixed;
+    width:280px;
+    height:280px;
+    border-radius:50%;
+    background:rgba(181,155,255,.18);
+    filter:blur(60px);
+    z-index:-1;
+}
+body::before{top:-80px;left:-70px;}
+body::after{bottom:-80px;right:-70px;}
+
+nav{
+    position:sticky;
+    top:0;
+    background:rgba(255,255,255,.75);
+    backdrop-filter:blur(10px);
+    display:flex;
+    justify-content:center;
+    padding:18px;
+}
+
+.logo{
+    color:#8367EB;
+    font-size:22px;
+    font-weight:700;
+}
+
+.hero{
+    text-align:center;
+    padding:70px 20px 35px;
+}
+
+.badge{
+    display:inline-block;
+    background:#EEE8FF;
+    color:#8367EB;
+    padding:8px 18px;
+    border-radius:999px;
+    margin-bottom:18px;
+    font-size:14px;
+}
+
+.hero h1{
+    color:#6D56D8;
+    font-size:42px;
+}
+
+.hero p{
+    max-width:620px;
+    margin:16px auto;
+    line-height:1.7;
+}
+
+.gallery{
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:22px;
+}
+
+.card{
+    background:white;
+    border-radius:24px;
+    padding:12px;
+    cursor:pointer;
+    box-shadow:0 10px 25px rgba(0,0,0,.06);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+}
+
+.card img{
+    width:100%;
+    height:260px;
+    object-fit:cover;
+    border-radius:16px;
+}
+
+.card h3{
+    text-align:center;
+    margin:12px 0 6px;
+    color:#7B63E5;
+}
+
+/* lightbox */
+.lightbox{
+    position:fixed;
+    inset:0;
+    background:rgba(42,28,78,.9);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:999;
+    padding:20px;
+}
+
+.lightbox img{
+    max-width:90%;
+    max-height:78vh;
+    border-radius:18px;
+    box-shadow:0 15px 35px rgba(0,0,0,.3);
+}
+
+.close{
+    position:absolute;
+    top:25px;
+    right:28px;
+    color:white;
+    font-size:30px;
+    cursor:pointer;
+}
+
+.controls{
+    display:flex;
+    gap:15px;
+    margin-top:20px;
+}
+
+button{
+    border:none;
+    background:#A387FF;
+    color:white;
+    padding:12px 18px;
+    border-radius:999px;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.counter{
+    color:white;
+    margin-top:14px;
+}
+
+footer{
+    text-align:center;
+    padding:35px;
+    color:#938DA7;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">🌸 Erika's Flowcharts</div>
+</nav>
+
+<section class="hero">
+    <div class="badge">Comp 002 Programming 1</div>
+
+    <h1>Sequence Flowcharts</h1>
+
+    <p>
+        A collection of ten (10) flowcharts for Comp 002 Programming 1 coursework. Click any
+        flowchart to view it in full size.
+    </p>
+</section>
+
+<div class="gallery" id="gallery"></div>
+
+<!-- Full screen viewer -->
+<div class="lightbox" id="lightbox">
+
+    <div class="close" onclick="closeBox()">✕</div>
+
+    <img id="preview">
+
+    <div class="controls">
+        <button onclick="previous()">⬅ Previous</button>
+        <button onclick="next()">Next ➡</button>
+    </div>
+
+    <div class="counter" id="counter"></div>
+
+</div>
+
+<footer>
+    Made with 💜 by Erika Nacionales
+</footer>
+
+<script>
+const gallery = document.getElementById("gallery");
+
+const images = [
+"flow1.jpg","flow2.jpg","flow3.jpg","flow4.jpg","flow5.jpg",
+"flow6.jpg","flow7.jpg","flow8.jpg","flow9.jpg","flow10.jpg"
+];
+
+images.forEach((img,index)=>{
+    gallery.innerHTML += `
+        <div class="card" onclick="openBox(${index})">
+            <img src="${img}" alt="Flowchart ${index+1}">
+            <h3>Flowchart ${index+1}</h3>
+        </div>
+    `;
+});
+
+let current = 0;
+
+const preview = document.getElementById("preview");
+const lightbox = document.getElementById("lightbox");
+const counter = document.getElementById("counter");
+
+function openBox(index){
+    current = index;
+    preview.src = images[current];
+    counter.innerHTML = `Flowchart ${current+1} of ${images.length}`;
+    lightbox.style.display = "flex";
+}
+
+function closeBox(){
+    lightbox.style.display = "none";
+}
+
+function next(){
+    current = (current+1) % images.length;
+    openBox(current);
+}
+
+function previous(){
+    current = (current-1+images.length) % images.length;
+    openBox(current);
+}
+
+document.addEventListener("keydown",(e)=>{
+    if(lightbox.style.display==="flex"){
+        if(e.key==="ArrowRight") next();
+        if(e.key==="ArrowLeft") previous();
+        if(e.key==="Escape") closeBox();
+    }
+});
+</script>
+
+</body>
+</html>
