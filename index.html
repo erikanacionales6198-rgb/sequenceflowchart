@@ -15,33 +15,78 @@
     font-family:'Poppins',sans-serif;
 }
 
-body{
-    background:linear-gradient(180deg,#F9F6FF,#FFF9FD);
-    color:#5E5674;
+html{
+    scroll-behavior:smooth;
 }
 
-/* dreamy background */
-body::before, body::after{
+body{
+    color:#5E5674;
+    overflow-x:hidden;
+    position:relative;
+}
+
+/* ==========================
+   BACKGROUND VIDEO
+========================== */
+
+#bg-video{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-3;
+}
+
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(248,245,255,.55);
+    backdrop-filter:blur(2px);
+    z-index:-2;
+}
+
+/* Dreamy glowing blobs */
+
+body::before,
+body::after{
     content:"";
     position:fixed;
-    width:280px;
-    height:280px;
+    width:300px;
+    height:300px;
     border-radius:50%;
-    background:rgba(181,155,255,.18);
-    filter:blur(60px);
+    filter:blur(70px);
     z-index:-1;
 }
-body::before{top:-80px;left:-70px;}
-body::after{bottom:-80px;right:-70px;}
+
+body::before{
+    top:-80px;
+    left:-80px;
+    background:rgba(185,161,255,.28);
+}
+
+body::after{
+    bottom:-100px;
+    right:-80px;
+    background:rgba(255,196,235,.25);
+}
+
+/* ==========================
+   NAVBAR
+========================== */
 
 nav{
     position:sticky;
     top:0;
-    background:rgba(255,255,255,.75);
-    backdrop-filter:blur(10px);
     display:flex;
     justify-content:center;
+    align-items:center;
     padding:18px;
+    background:rgba(255,255,255,.35);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(255,255,255,.25);
+    z-index:100;
 }
 
 .logo{
@@ -50,52 +95,66 @@ nav{
     font-weight:700;
 }
 
+/* ==========================
+   HERO
+========================== */
+
 .hero{
     text-align:center;
-    padding:70px 20px 35px;
+    padding:80px 20px 45px;
 }
 
 .badge{
     display:inline-block;
-    background:#EEE8FF;
+    background:rgba(238,232,255,.9);
     color:#8367EB;
     padding:8px 18px;
     border-radius:999px;
     margin-bottom:18px;
     font-size:14px;
+    font-weight:500;
 }
 
 .hero h1{
     color:#6D56D8;
-    font-size:42px;
+    font-size:46px;
+    margin-bottom:12px;
 }
 
 .hero p{
-    max-width:620px;
-    margin:16px auto;
-    line-height:1.7;
+    max-width:640px;
+    margin:auto;
+    line-height:1.8;
+    color:#6E6883;
 }
 
+/* ==========================
+   GALLERY
+========================== */
+
 .gallery{
-    max-width:1100px;
+    max-width:1150px;
     margin:auto;
-    padding:20px;
+    padding:20px 30px 70px;
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
     gap:22px;
 }
 
 .card{
-    background:white;
+    background:rgba(255,255,255,.42);
+    backdrop-filter:blur(16px);
+    border:1px solid rgba(255,255,255,.35);
     border-radius:24px;
     padding:12px;
     cursor:pointer;
-    box-shadow:0 10px 25px rgba(0,0,0,.06);
-    transition:.3s;
+    transition:.35s;
+    box-shadow:0 12px 28px rgba(0,0,0,.08);
 }
 
 .card:hover{
-    transform:translateY(-6px);
+    transform:translateY(-8px);
+    box-shadow:0 18px 36px rgba(131,103,235,.18);
 }
 
 .card img{
@@ -109,13 +168,17 @@ nav{
     text-align:center;
     margin:12px 0 6px;
     color:#7B63E5;
+    font-size:17px;
 }
 
-/* lightbox */
+/* ==========================
+   LIGHTBOX
+========================== */
+
 .lightbox{
     position:fixed;
     inset:0;
-    background:rgba(42,28,78,.9);
+    background:rgba(34,22,65,.94);
     display:none;
     justify-content:center;
     align-items:center;
@@ -128,72 +191,121 @@ nav{
     max-width:90%;
     max-height:78vh;
     border-radius:18px;
-    box-shadow:0 15px 35px rgba(0,0,0,.3);
+    box-shadow:0 18px 45px rgba(0,0,0,.35);
 }
 
 .close{
     position:absolute;
-    top:25px;
+    top:22px;
     right:28px;
     color:white;
-    font-size:30px;
+    font-size:34px;
     cursor:pointer;
 }
 
 .controls{
     display:flex;
     gap:15px;
-    margin-top:20px;
+    margin-top:22px;
 }
 
 button{
     border:none;
-    background:#A387FF;
+    background:linear-gradient(135deg,#8B6FE8,#B395FF);
     color:white;
-    padding:12px 18px;
+    padding:12px 20px;
     border-radius:999px;
     cursor:pointer;
     font-size:15px;
+    transition:.3s;
+}
+
+button:hover{
+    transform:translateY(-2px);
 }
 
 .counter{
     color:white;
     margin-top:14px;
+    font-size:15px;
 }
+
+/* ==========================
+   FOOTER
+========================== */
 
 footer{
     text-align:center;
-    padding:35px;
+    padding:30px;
     color:#938DA7;
+    background:rgba(255,255,255,.18);
+    backdrop-filter:blur(10px);
+}
+
+/* ==========================
+   MOBILE
+========================== */
+
+@media(max-width:768px){
+
+    .hero h1{
+        font-size:36px;
+    }
+
+    .gallery{
+        grid-template-columns:1fr;
+        padding:20px;
+    }
+
+    .card img{
+        height:300px;
+    }
+
+    .controls{
+        flex-direction:column;
+    }
 }
 </style>
 </head>
 
 <body>
 
+<!-- ✨ Background Video -->
+<video autoplay muted loop playsinline id="bg-video">
+    <source src="background.mp4" type="video/mp4">
+</video>
+
+<div class="overlay"></div>
+
+<!-- Navigation -->
 <nav>
     <div class="logo">🌸 Erika's Flowcharts</div>
 </nav>
 
+<!-- Hero -->
 <section class="hero">
-    <div class="badge">Comp 002 Programming 1</div>
+
+    <div class="badge">Comp 002 • Programming 1</div>
 
     <h1>Sequence Flowcharts</h1>
 
     <p>
-        A collection of ten (10) Sequence flowcharts for Comp 002 Programming 1 coursework. Click any
-        flowchart to view it in full size.
+        A collection of ten (10) sequence flowcharts created for my
+        Programming 1 coursework. Click any flowchart below to view it
+        in full size.
     </p>
+
 </section>
 
+<!-- Gallery -->
 <div class="gallery" id="gallery"></div>
 
-<!-- Full screen viewer -->
+<!-- Fullscreen Viewer -->
 <div class="lightbox" id="lightbox">
 
     <div class="close" onclick="closeBox()">✕</div>
 
-    <img id="preview">
+    <img id="preview" alt="Flowchart Preview">
 
     <div class="controls">
         <button onclick="previous()">⬅ Previous</button>
@@ -204,6 +316,7 @@ footer{
 
 </div>
 
+<!-- Footer -->
 <footer>
     Made with 💜 by Erika Nacionales
 </footer>
@@ -212,17 +325,28 @@ footer{
 const gallery = document.getElementById("gallery");
 
 const images = [
-"flow1.jpg","flow2.jpg","flow3.jpg","flow4.jpg","flow5.jpg",
-"flow6.jpg","flow7.jpg","flow8.jpg","flow9.jpg","flow10.jpg"
+    "flow1.jpg",
+    "flow2.jpg",
+    "flow3.jpg",
+    "flow4.jpg",
+    "flow5.jpg",
+    "flow6.jpg",
+    "flow7.jpg",
+    "flow8.jpg",
+    "flow9.jpg",
+    "flow10.jpg"
 ];
 
-images.forEach((img,index)=>{
+// Generate gallery cards
+images.forEach((img, index) => {
+
     gallery.innerHTML += `
         <div class="card" onclick="openBox(${index})">
-            <img src="${img}" alt="Flowchart ${index+1}">
-            <h3>Flowchart ${index+1}</h3>
+            <img src="${img}" alt="Flowchart ${index + 1}">
+            <h3>Flowchart ${index + 1}</h3>
         </div>
     `;
+
 });
 
 let current = 0;
@@ -232,32 +356,45 @@ const lightbox = document.getElementById("lightbox");
 const counter = document.getElementById("counter");
 
 function openBox(index){
+
     current = index;
     preview.src = images[current];
-    counter.innerHTML = `Flowchart ${current+1} of ${images.length}`;
+    counter.innerHTML = `Flowchart ${current + 1} of ${images.length}`;
     lightbox.style.display = "flex";
+
 }
 
 function closeBox(){
+
     lightbox.style.display = "none";
+
 }
 
 function next(){
-    current = (current+1) % images.length;
+
+    current = (current + 1) % images.length;
     openBox(current);
+
 }
 
 function previous(){
-    current = (current-1+images.length) % images.length;
+
+    current = (current - 1 + images.length) % images.length;
     openBox(current);
+
 }
 
-document.addEventListener("keydown",(e)=>{
-    if(lightbox.style.display==="flex"){
-        if(e.key==="ArrowRight") next();
-        if(e.key==="ArrowLeft") previous();
-        if(e.key==="Escape") closeBox();
+// Keyboard navigation
+document.addEventListener("keydown", (e)=>{
+
+    if(lightbox.style.display === "flex"){
+
+        if(e.key === "ArrowRight") next();
+        if(e.key === "ArrowLeft") previous();
+        if(e.key === "Escape") closeBox();
+
     }
+
 });
 </script>
 
